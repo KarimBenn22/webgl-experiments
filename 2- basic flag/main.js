@@ -8,19 +8,13 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true} );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+const geometry = new THREE.PlaneGeometry( 4.5, 2 );
+const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: false} );
+const plane = new THREE.Mesh( geometry, material );
+scene.add( plane );
 
 camera.position.z = 5;
 
 function animate() {
-
-	cube.rotation.x += 0.01; 
-	cube.rotation.y += 0.01;
-	cube.rotation.z += 0.01;
-
 	renderer.render( scene, camera );
-
 }
