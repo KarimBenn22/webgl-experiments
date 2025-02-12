@@ -6,12 +6,10 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Add OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // Smooth camera movement
+controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 
-// Plane with ShaderMaterial
 const geometry = new THREE.PlaneGeometry(4.5, 2);
 const material = new THREE.ShaderMaterial({
   vertexShader: `
