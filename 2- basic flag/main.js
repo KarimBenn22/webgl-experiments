@@ -10,13 +10,13 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 
-const geometry = new THREE.PlaneGeometry(4.5, 2);
+const geometry = new THREE.PlaneGeometry(4.5, 2,30,30);
 const material = new THREE.ShaderMaterial({
   vertexShader: `
     uniform float uTime;
     void main() {
       vec3 newPosition = position;
-      newPosition.y += sin( uTime ) * 0.1;
+      newPosition.y += sin(position.x * 5.0 + uTime * 2.0) * 0.1;
       gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
     }
   `,
