@@ -3,22 +3,29 @@ import * as THREE from 'three';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 const renderer = new THREE.WebGLRenderer();
+// use TextureLoader to load the texture
+const texture = new THREE.TextureLoader().load('textures/flag.png');
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const geometry = new THREE.PlaneGeometry(3,3);
+const geometry = new THREE.PlaneGeometry(5,3);
 const material = new THREE.ShaderMaterial(
     {
         uniforms: {
+            uTexture: { value: texture }
         },
         vertexShader: `
+        varying vec2 vUv;
         void main() {
+            vUv = uv;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
         `,
         fragmentShader: `
+        varying vec2 vUv;
+        uniform sampler2D uTexture;
         void main() {
-            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            gl_FragColor = texture2D(uTexture, vUv);
         }
         `
     }
