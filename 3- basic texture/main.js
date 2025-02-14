@@ -7,7 +7,22 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.PlaneGeometry(3,3);
-const material = new THREE.MeshBasicMaterial({color: '#fa0202'});
+const material = new THREE.ShaderMaterial(
+    {
+        uniforms: {
+        },
+        vertexShader: `
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+        `,
+        fragmentShader: `
+        void main() {
+            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+        `
+    }
+);
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 camera.position.z = 5;
